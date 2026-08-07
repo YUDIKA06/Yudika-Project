@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { 
   Search, ChevronDown, Share2, 
-  Mail, Phone, MapPin, Menu, X, Camera, Video, Radio 
+  Mail, Phone, MapPin, Menu, X, Camera, Video, Radio, MessageCircle 
 } from 'lucide-react';
 
 // Dictionary for Bilingual support
@@ -77,6 +77,70 @@ const testimonials = [
   { name: "Farid Gondrong", text: "Mantap banget asli dah", role: "Corporate Client" },
   { name: "Heri Gemoy", text: "CINTA UNINDRA", role: "Art Collector" }
 ];
+
+// Data untuk Popup Galeri di Halaman Utama
+const serviceGalleries = {
+  'doc': [
+    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1469474968028-56623f02e42e?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1542038784456-1ea8e935640e?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1516035069371-29a1b244cc32?auto=format&fit=crop&w=800&q=80'
+  ],
+  'multi': [
+    'https://images.unsplash.com/photo-1574717025058-2f8737d2e2b7?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1518770660439-4636190af475?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1492691527719-9d1e07e534b4?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80',
+  ],
+  'stream': [
+    'https://evio.id/wp-content/uploads/2025/01/SewaLEDSreenBali-BankMandiri-SewaSoundSystemBali-SewaLiveStreamingBali-SewaLiveVideoBali-EvioMultimedia.jpg',
+    'https://images.unsplash.com/photo-1627914227361-cc7087754d58?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1516321497487-e288fb19713f?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1598899134739-24c46f58b8c0?auto=format&fit=crop&w=800&q=80'
+  ]
+};
+
+// Data untuk Popup Galeri di Halaman Portofolio
+const portfolioGalleries = {
+  1: [ // Wedding in Bali
+    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1583939000340-c66619586118?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80'
+  ],
+  2: [ // Corporate Summit
+    'https://images.unsplash.com/photo-1511578314322-379afb476865?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1540575467063-178a50c2df87?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1556761175-5973dc0f32b7?auto=format&fit=crop&w=800&q=80'
+  ],
+  3: [ // Nature Wildlife
+    'https://upload.wikimedia.org/wikipedia/commons/7/7d/Wildlife_at_Maasai_Mara_%28Lion%29.jpg',
+    'https://images.unsplash.com/photo-1516426122078-c23e76319801?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1475809913362-28a064062cb8?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1456926631375-92c8ce872def?auto=format&fit=crop&w=800&q=80'
+  ],
+  4: [ // Music Festival
+    'https://images.unsplash.com/photo-1459749411175-04bf5292ceea?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1533174000255-a63b453965d2?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1470229722913-7c090be88051?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1514525253161-7a46d19cd819?auto=format&fit=crop&w=800&q=80'
+  ],
+  5: [ // Product Launch
+    'https://images.unsplash.com/photo-1505373877841-8d25f7d46678?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1542744173-8e7e53415bb0?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1556761175-4b46a572b786?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1522071820081-009f0129c71c?auto=format&fit=crop&w=800&q=80'
+  ],
+  6: [ // Pre-wedding Shoot
+    'https://images.unsplash.com/photo-1519741497674-611481863552?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1606800052052-a08af7148866?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1583939000340-c66619586118?auto=format&fit=crop&w=800&q=80',
+    'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?auto=format&fit=crop&w=800&q=80'
+  ]
+};
 
 const Navbar = ({ lang, setLang, setPage, currentPage, searchQuery, setSearchQuery }) => {
   const t = content[lang];
@@ -249,9 +313,11 @@ const Footer = ({ lang }) => {
                 <MapPin className="w-5 h-5 mr-3 text-amber-500 shrink-0" />
                 <span className="text-sm">Jl. Ciliwung, Gang Mawar, Jakarta Timur, Indonesia 12345</span>
               </li>
-              <li className="flex items-center text-neutral-400">
-                <Phone className="w-5 h-5 mr-3 text-amber-500" />
-                <span className="text-sm">+62 895 0314 1919</span>
+              <li>
+                <a href="https://wa.me/6289503141919" target="_blank" rel="noopener noreferrer" className="flex items-center text-neutral-400 hover:text-amber-500 transition-colors">
+                  <Phone className="w-5 h-5 mr-3 text-amber-500" />
+                  <span className="text-sm">+62 895 0314 1919</span>
+                </a>
               </li>
               <li className="flex items-center text-neutral-400">
                 <Mail className="w-5 h-5 mr-3 text-amber-500" />
@@ -263,14 +329,12 @@ const Footer = ({ lang }) => {
           <div>
             <h3 className="text-white font-bold tracking-wider uppercase mb-6">{t.follow}</h3>
             <div className="flex space-x-4">
-              <a href="#" className="w-10 h-10 rounded-full bg-neutral-900 flex items-center justify-center text-neutral-400 hover:bg-amber-500 hover:text-white transition-colors">
-                <Share2 className="w-5 h-5" />
-              </a>
-               <a href="#" className="h-10 px-4 rounded-full bg-neutral-900 flex items-center justify-center text-sm font-bold text-neutral-400 hover:bg-amber-500 hover:text-white transition-colors">
+               {/* Tombol share dihapus sesuai permintaan */}
+               <a href="https://www.instagram.com/yudika06_/" target="_blank" rel="noopener noreferrer" className="h-10 px-4 rounded-full bg-neutral-900 flex items-center justify-center text-sm font-bold text-neutral-400 hover:bg-amber-500 hover:text-white transition-colors">
                 Instagram
               </a>
-               <a href="#" className="h-10 px-4 rounded-full bg-neutral-900 flex items-center justify-center text-sm font-bold text-neutral-400 hover:bg-amber-500 hover:text-white transition-colors">
-                YouTube
+               <a href="#" target="_blank" rel="noopener noreferrer" className="h-10 px-4 rounded-full bg-neutral-900 flex items-center justify-center text-sm font-bold text-neutral-400 hover:bg-amber-500 hover:text-white transition-colors">
+                Facebook
               </a>
             </div>
           </div>
@@ -284,10 +348,11 @@ const Footer = ({ lang }) => {
   );
 };
 
-const Home = ({ lang }) => {
+const Home = ({ lang, setPage }) => {
   const t = content[lang].home;
   const tNav = content[lang].nav;
   const [currentSlide, setCurrentSlide] = useState(0);
+  const [activeModal, setActiveModal] = useState(null); // 'doc', 'multi', 'stream'
 
   useEffect(() => {
     const timer = setInterval(() => {
@@ -316,7 +381,8 @@ const Home = ({ lang }) => {
           <p className="text-xl md:text-2xl text-neutral-200 mb-10 drop-shadow-md">
             {t.heroSub}
           </p>
-          <button className="px-8 py-3 bg-amber-500 text-black font-bold tracking-wider uppercase text-sm rounded-full hover:bg-white hover:text-black transition-all transform hover:scale-105">
+          {/* Tombol Portofolio Sekarang Bisa Dipencet */}
+          <button onClick={() => setPage('portfolio')} className="px-8 py-3 bg-amber-500 text-black font-bold tracking-wider uppercase text-sm rounded-full hover:bg-white hover:text-black transition-all transform hover:scale-105">
             {tNav.portfolio}
           </button>
         </div>
@@ -340,7 +406,8 @@ const Home = ({ lang }) => {
           </div>
           
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
-            <div className="group relative overflow-hidden rounded-xl bg-neutral-900 aspect-[4/5] cursor-pointer">
+            {/* Box Dokumentasi */}
+            <div onClick={() => setActiveModal('doc')} className="group relative overflow-hidden rounded-xl bg-neutral-900 aspect-[4/5] cursor-pointer">
               <img src={portfolioItems[0].img} alt="Product 1" className="object-cover w-full h-full opacity-60 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110" />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
                 <Camera className="w-12 h-12 text-amber-500 mb-4" />
@@ -351,7 +418,8 @@ const Home = ({ lang }) => {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-xl bg-neutral-900 aspect-[4/5] cursor-pointer">
+            {/* Box Multicam */}
+            <div onClick={() => setActiveModal('multi')} className="group relative overflow-hidden rounded-xl bg-neutral-900 aspect-[4/5] cursor-pointer">
               <img src={portfolioItems[3].img} alt="Product 2" className="object-cover w-full h-full opacity-60 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110" />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
                 <Video className="w-12 h-12 text-amber-500 mb-4" />
@@ -362,7 +430,8 @@ const Home = ({ lang }) => {
               </div>
             </div>
 
-            <div className="group relative overflow-hidden rounded-xl bg-neutral-900 aspect-[4/5] cursor-pointer">
+            {/* Box Streaming */}
+            <div onClick={() => setActiveModal('stream')} className="group relative overflow-hidden rounded-xl bg-neutral-900 aspect-[4/5] cursor-pointer">
               <img src={portfolioItems[1].img} alt="Product 3" className="object-cover w-full h-full opacity-60 group-hover:opacity-40 transition-opacity duration-500 group-hover:scale-110" />
               <div className="absolute inset-0 flex flex-col items-center justify-center p-6 text-center">
                 <Radio className="w-12 h-12 text-amber-500 mb-4" />
@@ -375,6 +444,33 @@ const Home = ({ lang }) => {
           </div>
         </div>
       </section>
+
+      {/* POPUP MODAL GALERI */}
+      {activeModal && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-neutral-950/95 backdrop-blur-md p-4 md:p-8 animate-in fade-in duration-300">
+          <button onClick={() => setActiveModal(null)} className="absolute top-6 right-6 p-2 bg-neutral-900 rounded-full text-neutral-400 hover:text-white hover:bg-red-500 transition-colors z-50">
+            <X className="w-8 h-8" />
+          </button>
+          
+          <div className="w-full max-w-7xl max-h-[85vh] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="text-center mb-10 mt-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-widest">
+                {content[lang].servicesMenu[activeModal]}
+              </h2>
+              <div className="w-20 h-1 bg-amber-500 mx-auto mt-6"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {serviceGalleries[activeModal].map((imgUrl, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-xl aspect-square bg-neutral-900">
+                  <img src={imgUrl} alt={`Gallery ${i}`} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
 
       <section className="py-24 bg-neutral-900">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -436,6 +532,7 @@ const About = ({ lang }) => {
 
 const Portfolio = ({ lang, searchQuery }) => {
   const t = content[lang].nav;
+  const [activeModal, setActiveModal] = useState(null); // Tambahkan state untuk modal
   
   const filteredItems = portfolioItems.filter(item => 
     item.title.toLowerCase().includes(searchQuery.toLowerCase()) || 
@@ -457,7 +554,11 @@ const Portfolio = ({ lang, searchQuery }) => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {filteredItems.length > 0 ? filteredItems.map((item) => (
-            <div key={item.id} className="group relative overflow-hidden rounded-xl aspect-square bg-neutral-900">
+            <div 
+              key={item.id} 
+              onClick={() => setActiveModal(item.id)} // Fungsi klik untuk buka modal
+              className="group relative overflow-hidden rounded-xl aspect-square bg-neutral-900 cursor-pointer"
+            >
               <img src={item.img} alt={item.title} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
               <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-6">
                 <span className="text-amber-500 text-sm font-bold uppercase tracking-wider mb-2">{item.category}</span>
@@ -471,6 +572,33 @@ const Portfolio = ({ lang, searchQuery }) => {
           )}
         </div>
       </div>
+
+      {/* POPUP MODAL GALERI UNTUK PORTOFOLIO */}
+      {activeModal && (
+        <div className="fixed inset-0 z-[100] flex flex-col items-center justify-center bg-neutral-950/95 backdrop-blur-md p-4 md:p-8 animate-in fade-in duration-300">
+          <button onClick={() => setActiveModal(null)} className="absolute top-6 right-6 p-2 bg-neutral-900 rounded-full text-neutral-400 hover:text-white hover:bg-red-500 transition-colors z-50">
+            <X className="w-8 h-8" />
+          </button>
+          
+          <div className="w-full max-w-7xl max-h-[85vh] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="text-center mb-10 mt-8">
+              <h2 className="text-3xl md:text-4xl font-bold text-white uppercase tracking-widest">
+                {portfolioItems.find(item => item.id === activeModal)?.title}
+              </h2>
+              <div className="w-20 h-1 bg-amber-500 mx-auto mt-6"></div>
+            </div>
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+              {portfolioGalleries[activeModal]?.map((imgUrl, i) => (
+                <div key={i} className="group relative overflow-hidden rounded-xl aspect-square bg-neutral-900">
+                  <img src={imgUrl} alt={`Gallery ${i}`} className="object-cover w-full h-full transition-transform duration-700 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+                </div>
+              ))}
+            </div>
+          </div>
+        </div>
+      )}
     </div>
   );
 };
@@ -519,9 +647,14 @@ const ServiceDetail = ({ type, lang }) => {
         </div>
         
         <div className="mt-16 text-center">
-           <button className="px-8 py-3 bg-amber-500 text-black font-bold tracking-wider uppercase text-sm rounded-full hover:bg-white hover:text-black transition-colors">
+           <a 
+             href="https://wa.me/6289503141919" 
+             target="_blank" 
+             rel="noopener noreferrer"
+             className="inline-block px-8 py-3 bg-amber-500 text-black font-bold tracking-wider uppercase text-sm rounded-full hover:bg-white hover:text-black transition-colors"
+           >
               {lang === 'id' ? 'Pesan Sekarang' : 'Book Now'}
-           </button>
+           </a>
         </div>
       </div>
     </div>
@@ -540,7 +673,8 @@ export default function App() {
   const renderPage = () => {
     switch (currentPage) {
       case 'home':
-        return <Home lang={lang} />;
+        // Kirim setCurrentPage ke komponen Home agar tombol portofolio bisa pindah halaman
+        return <Home lang={lang} setPage={setCurrentPage} />;
       case 'about':
         return <About lang={lang} />;
       case 'portfolio':
@@ -552,12 +686,12 @@ export default function App() {
       case 'service-stream':
         return <ServiceDetail type="stream" lang={lang} />;
       default:
-        return <Home lang={lang} />;
+        return <Home lang={lang} setPage={setCurrentPage} />;
     }
   };
 
   return (
-    <div className="min-h-screen bg-neutral-950 font-sans selection:bg-amber-500 selection:text-black">
+    <div className="min-h-screen bg-neutral-950 font-sans selection:bg-amber-500 selection:text-black relative">
       <Navbar 
         lang={lang} 
         setLang={setLang} 
@@ -572,6 +706,24 @@ export default function App() {
       </main>
 
       <Footer lang={lang} />
+
+      {/* FLOATING WHATSAPP BUTTON */}
+      <div className="fixed bottom-6 right-6 z-50 group">
+        <div className="absolute right-16 top-1/2 -translate-y-1/2 bg-white text-black text-sm px-4 py-2 rounded-lg shadow-lg opacity-0 pointer-events-none group-hover:opacity-100 transition-opacity duration-300 whitespace-nowrap font-medium">
+          {lang === 'id' ? "Kamu butuh bantuan? Hubungi saya" : "Need help? Contact me"}
+          <div className="absolute right-[-6px] top-1/2 -translate-y-1/2 w-0 h-0 border-t-8 border-t-transparent border-b-8 border-b-transparent border-l-8 border-l-white"></div>
+        </div>
+        
+        <a
+          href="https://wa.me/6289503141919"
+          target="_blank"
+          rel="noopener noreferrer"
+          className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform transform hover:scale-110 overflow-hidden"
+        >
+          <img src="/gambar wa.jpg" alt="WhatsApp" className="w-full h-full object-cover" />
+        </a>
+      </div>
+
     </div>
   );
 }
