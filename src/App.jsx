@@ -720,7 +720,7 @@ export default function App() {
           rel="noopener noreferrer"
           className="flex items-center justify-center w-14 h-14 rounded-full shadow-lg transition-transform transform hover:scale-110 overflow-hidden"
         >
-          <img src="/gambar wa.jpg" alt="WhatsApp" className="w-full h-full object-cover" />
+          <img src="/gambar wa.png" alt="WhatsApp" className="w-full h-full object-cover" />
         </a>
       </div>
 
